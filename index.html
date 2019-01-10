@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div id="game"></div>
+                <div id="guesses"></div>
+                <div id="wins"></div>
+            </div>
+        </div>
+        
+    </div>
+
+
+    <script type="text/javascript">
+        console.log("Helloworld");
+        
+        //array of words
+        var words = ["cat", "dog", "plane", "robot"];
+        var game = document.getElementById("game");
+        var input = "";
+        var storeguesses = [];
+        var display = document.getElementById("guesses");
+        var score = 0;
+        var wins = document.getElementById("wins");
+        
+        //function to start the game
+        function StartGame()
+        {
+            var randomword = words[Math.floor(Math.random()*words.length)];
+            randomword = "plane";
+            
+            // testing : 
+            //game.textContent = randomword;//
+            
+            //looped through the ramdom word and created a string that has blanks (underscores) for each letter in the random word
+            for (i=0; i<randomword.length; i++) {
+                input += "_ ";
+            }
+            game.textContent = input;
+            
+            //define key up
+            document.addEventListener("keyup", function(event){
+            //the following code gets executed when the user does a keyup event (pressed and released a key)
+            //console.log(event);
+            var userkeypress = event.key;
+            //console.log(userkeypress);
+            //store the guesses
+            storeguesses.push(userkeypress);
+           // randomword.indexOf(userkeypress);
+           input = "";
+
+              for (i=0; i<randomword.length; i++) {
+                
+                if (storeguesses.includes(randomword[i]))
+                {
+                    input += randomword[i] + " ";
+                }
+                
+                else 
+                {
+                    input += "_ ";
+                }
+            }
+            //the replace... removes the empty space between each letter
+            if (randomword === game.textContent.replace(/ +/g, "")) {
+                score++;
+                wins.textContent=score;
+            }
+            game.textContent = input;
+            guesses.textContent += userkeypress + " ";
+
+            
+            })       
+            
+        }
+
+        
+        
+        StartGame();
+
+
+        
+        
+        
+    </script>
+
+
+    
+</body>
+</html>
